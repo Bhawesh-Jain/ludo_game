@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/ludo_bg_2"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:id="@+id/header"
+        >
+
+        <ImageView
+            android:id="@+id/ic_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:contentDescription="@string/back"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/arima_bold"
+            android:text="Settings"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_19sdp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_30sdp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_bg_settings_tab"
+            android:fontFamily="@font/arima_medium"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_30sdp"
+            android:paddingVertical="@dimen/_15sdp"
+            android:text="Audio"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_bg_settings_tab"
+            android:fontFamily="@font/arima_medium"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_30sdp"
+            android:paddingVertical="@dimen/_15sdp"
+            android:text="Notifications"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_bg_settings_tab"
+            android:fontFamily="@font/arima_medium"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_30sdp"
+            android:paddingVertical="@dimen/_15sdp"
+            android:text="@string/terms_conditions"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_bg_settings_tab"
+            android:fontFamily="@font/arima_medium"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_30sdp"
+            android:paddingVertical="@dimen/_15sdp"
+            android:text="Privacy Policy"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

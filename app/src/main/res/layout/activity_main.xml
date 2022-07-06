@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="@drawable/ludo_bg_2"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="-15dp"
+            android:layout_toEndOf="@id/profile_image">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="-5dp"
+                android:layout_marginTop="-4dp"
+                android:layout_marginEnd="-5dp"
+                android:background="@drawable/custom_bg_coin_tab" />
+
+            <LinearLayout
+                android:id="@+id/coin_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:gravity="center_vertical|end"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:paddingVertical="@dimen/_3sdp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/coin_ic"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginHorizontal="@dimen/_2sdp"
+                        android:contentDescription="@string/coins_ic"
+                        android:padding="@dimen/_2sdp"
+                        android:src="@drawable/ic_coin" />
+
+                    <TextView
+                        android:id="@+id/coin_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_2sdp"
+                        android:fontFamily="@font/arima_bold"
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:text="99999"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/diamond_ic"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginHorizontal="@dimen/_2sdp"
+                        android:contentDescription="@string/diamond_ic"
+                        android:padding="@dimen/_2sdp"
+                        android:src="@drawable/ic_diamond" />
+
+                    <TextView
+                        android:id="@+id/diamond_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_2sdp"
+                        android:fontFamily="@font/arima_bold"
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:text="500"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:contentDescription="@string/add_coins"
+                    android:src="@drawable/ic_add" />
+
+            </LinearLayout>
+
+            <!--            <soup.neumorphism.NeumorphCardView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_alignParentStart="true"-->
+            <!--                android:layout_centerVertical="true"-->
+            <!--                android:layout_marginStart="@dimen/_15sdp"-->
+            <!--                android:layout_marginTop="@dimen/_8sdp"-->
+
+            <!--                app:neumorph_backgroundColor="@color/gold">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="@string/ic_logo"-->
+
+            <!--            </soup.neumorphism.NeumorphCardView>-->
+
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_alignParentStart="true"-->
+            <!--                android:layout_centerVertical="true"-->
+            <!--                android:layout_marginStart="@dimen/_15sdp"-->
+            <!--                android:layout_marginTop="@dimen/_8sdp"-->
+
+            <!--                android:fontFamily="serif"-->
+            <!--                android:text="Lvl 2"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="@dimen/_14sdp"-->
+            <!--                android:textStyle="bold" />-->
+
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+
+            android:src="@drawable/profile_icon_man"
+            app:civ_border_color="@color/gold"
+            app:civ_border_width="@dimen/_1sdp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:layout_alignBottom="@id/footer">
+
+        <LinearLayout
+            android:id="@+id/share_app"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:background="@drawable/custom_bg_leave_tab"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+            <FrameLayout
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_gravity="bottom|end"
+                    android:contentDescription="@string/coins_ic"
+                    android:src="@drawable/ic_coin" />
+
+                <ImageView
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:contentDescription="@string/add_friend_ic"
+                    android:src="@drawable/ic_add_friend" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arima_medium"
+                android:paddingHorizontal="@dimen/_2sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:text="@string/invite_your_friends"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_6sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ic_exit"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_bg_leave_tab"
+            android:contentDescription="@string/leave"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_leave" />
+
+        <ImageView
+            android:id="@+id/ludo_logo"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_140sdp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/ic_logo"
+            android:src="@drawable/ludo_logo" />
+
+        <LinearLayout
+            android:id="@+id/local_multiplayer"
+            android:layout_width="@dimen/_210sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ludo_logo"
+            android:layout_centerInParent="true"
+            android:layout_marginVertical="@dimen/_20sdp"
+            android:background="@drawable/custom_bg_loc_mplayer_tab"
+            android:elevation="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_10sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/image"
+                android:paddingVertical="@dimen/_10sdp"
+                android:src="@drawable/ic_two_people" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_3sdp"
+                    android:fontFamily="@font/arima_medium"
+                    android:text="@string/local"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_3sdp"
+                    android:fontFamily="@font/arima_medium"
+                    android:text="@string/multiplayer"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vs_computer"
+            android:layout_width="@dimen/_210sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/local_multiplayer"
+            android:layout_centerInParent="true"
+            android:background="@drawable/custom_bg_loc_mplayer_tab"
+            android:elevation="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_10sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/image"
+                android:paddingVertical="@dimen/_10sdp"
+                android:src="@drawable/ic_ai" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_3sdp"
+                    android:fontFamily="@font/arima_medium"
+                    android:text="@string/vs"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_3sdp"
+                    android:fontFamily="@font/arima_medium"
+                    android:text="@string/computer"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:background="@drawable/custom_bg_leave_tab"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:contentDescription="@string/moneybag"
+                android:src="@drawable/ic_money_bag" />
+
+            <TextView
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arima_medium"
+                android:paddingHorizontal="@dimen/_2sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:text="@string/get_free_coins"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+
+                android:textSize="@dimen/_7sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ic_settings"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:contentDescription="@string/settings"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:src="@drawable/ic_settings" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
