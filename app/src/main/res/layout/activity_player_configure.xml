@@ -182,6 +182,7 @@
             android:rowCount="2">
 
             <RelativeLayout
+                android:id="@+id/redPlayer_layout"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="10dp"
@@ -198,6 +199,7 @@
                     android:layout_gravity="center">
 
                     <ImageView
+                        android:id="@+id/redPlayer_ic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/check"
@@ -225,6 +227,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/greenPlayer_layout"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="10dp"
@@ -241,10 +244,11 @@
                     android:layout_gravity="center">
 
                     <ImageView
+                        android:id="@+id/greenPlayer_ic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/check"
-                        android:src="@drawable/ic_ai"
+                        android:src="@drawable/ic_person"
                         android:padding="@dimen/_13sdp" />
 
                     <ImageView
@@ -268,6 +272,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/yellowPlayer_layout"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="10dp"
@@ -284,6 +289,7 @@
                     android:layout_gravity="center">
 
                     <ImageView
+                        android:id="@+id/yellowPlayer_ic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/check"
@@ -312,6 +318,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/bluePlayer_layout"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="10dp"
@@ -328,6 +335,7 @@
                     android:layout_gravity="center">
 
                     <ImageView
+                        android:id="@+id/bluePlayer_ic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/check"
