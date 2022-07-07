@@ -16,11 +16,9 @@ import java.util.ArrayList;
 
 public class PlayerConfigureActivity extends AppCompatActivity {
 
-    private final int NO_PLAYER = 0;
-    private final int HUMAN_PLAYER = 1;
     private final ArrayList<Integer> players = new ArrayList<>();
     private ActivityPlayerConfigureBinding binding;
-    private int RedP, BlueP, GreenP, YellowP;
+    private boolean redP, blueP, greenP, yellowP;
     private int totalPlayers;
 
     @Override
@@ -29,11 +27,11 @@ public class PlayerConfigureActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        YellowP = HUMAN_PLAYER;
-        GreenP = HUMAN_PLAYER;
+        yellowP = true;
+        greenP = true;
         totalPlayers = 2;
-        RedP = NO_PLAYER;
-        BlueP = NO_PLAYER;
+        redP = false;
+        blueP = false;
 
         binding = ActivityPlayerConfigureBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -42,14 +40,54 @@ public class PlayerConfigureActivity extends AppCompatActivity {
 
         binding.icBack.setOnClickListener(view -> finish());
 
-//        binding.twoPlayerLayout.setOnClickListener(view -> changeCheck(binding.twoPlayerIc));
-//        binding.threePlayerLayout.setOnClickListener(view -> changeCheck(binding.threePlayerIc));
-//        binding.fourPlayerLayout.setOnClickListener(view -> changeCheck(binding.fourPlayerIc));
-
         binding.redPlayerLayout.setOnClickListener(view -> changePlayerStatus(binding.redPlayerIc));
         binding.greenPlayerLayout.setOnClickListener(view -> changePlayerStatus(binding.greenPlayerIc));
         binding.bluePlayerLayout.setOnClickListener(view -> changePlayerStatus(binding.bluePlayerIc));
         binding.yellowPlayerLayout.setOnClickListener(view -> changePlayerStatus(binding.yellowPlayerIc));
+    }
+
+    private void changePlayerStatus(ImageView imageView) {
+        boolean result = false;
+        if (binding.redPlayerIc == imageView) {
+            if (redP) {
+                redP = false;
+                totalPlayers -= 1;
+            } else {
+                redP = true;
+                result = true;
+                totalPlayers += 1;
+            }
+        } else if (binding.bluePlayerIc == imageView) {
+            if (blueP) {
+                blueP = false;
+                totalPlayers -= 1;
+            } else {
+                blueP = true;
+                result = true;
+                totalPlayers += 1;
+            }
+        } else if (binding.greenPlayerIc == imageView) {
+            if (greenP) {
+                greenP = false;
+                totalPlayers -= 1;
+            } else {
+                greenP = true;
+                result = true;
+                totalPlayers += 1;
+            }
+        } else if (binding.yellowPlayerIc == imageView) {
+            if (yellowP) {
+                yellowP = false;
+                totalPlayers -= 1;
+            } else {
+                yellowP = true;
+                result = true;
+                totalPlayers += 1;
+            }
+        }
+        if (result) imageView.setImageResource(R.drawable.ic_person);
+        else imageView.setImageResource(R.drawable.custom_empty_drawable);
+        changeCheck();
     }
 
     private void startGame() {
@@ -65,83 +103,14 @@ public class PlayerConfigureActivity extends AppCompatActivity {
 
     private void checkPlayers() {
         players.clear();
-        if (RedP == HUMAN_PLAYER) players.add(1);
-        if (GreenP == HUMAN_PLAYER) players.add(2);
-        if (BlueP == HUMAN_PLAYER) players.add(3);
-        if (YellowP == HUMAN_PLAYER) players.add(4);
-    }
-
-//    private ArrayList<Integer> getPlayers() {
-//        ArrayList<Integer> players = new ArrayList<>();
-//        for (int playerId : playerIds) {
-//            if (playerId != 0) {
-//                players.add(playerId);
-//            }
-//        }
-//        return players;
-//    }
-
-    private void changePlayerStatus(ImageView imageView) {
-        if (imageView == binding.redPlayerIc) {
-            RedP += 1;
-            if (RedP == 2) {
-                RedP = 0;
-                totalPlayers -= 1;
-            }
-        } else if (imageView == binding.bluePlayerIc) {
-            BlueP += 1;
-            if (BlueP == 2) BlueP = 0;
-        } else if (imageView == binding.greenPlayerIc) {
-            GreenP += 1;
-            if (GreenP == 2) GreenP = 0;
-        } else if (imageView == binding.yellowPlayerIc) {
-            YellowP += 1;
-            if (YellowP == 2) YellowP = 0;
-        }
-        changePlayerImage();
-    }
-
-    private void changePlayerImage() {
-        if (RedP == NO_PLAYER) {
-            binding.redPlayerIc.setImageResource(R.drawable.custom_empty_drawable);
-            totalPlayers += 1;
-        } else if (RedP == HUMAN_PLAYER) {
-            binding.redPlayerIc.setImageResource(R.drawable.ic_person);
-            totalPlayers -= 1;
-        }
-//        else if (RedP == COMP_PLAYER) binding.redPlayerIc.setImageResource(R.drawable.ic_ai);
-
-        if (GreenP == NO_PLAYER) {
-            binding.greenPlayerIc.setImageResource(R.drawable.custom_empty_drawable);
-            totalPlayers += 1;
-        } else if (GreenP == HUMAN_PLAYER) {
-            binding.greenPlayerIc.setImageResource(R.drawable.ic_person);
-            totalPlayers -= 1;
-        }
-//        else if (GreenP == COMP_PLAYER) binding.greenPlayerIc.setImageResource(R.drawable.ic_ai);
-
-        if (BlueP == NO_PLAYER) {
-            binding.bluePlayerIc.setImageResource(R.drawable.custom_empty_drawable);
-            totalPlayers += 1;
-        } else if (BlueP == HUMAN_PLAYER) {
-            totalPlayers -= 1;
-            binding.bluePlayerIc.setImageResource(R.drawable.ic_person);
-        }
-//        else if (BlueP == COMP_PLAYER) binding.bluePlayerIc.setImageResource(R.drawable.ic_ai);
-
-        if (YellowP == NO_PLAYER) {
-            binding.yellowPlayerIc.setImageResource(R.drawable.custom_empty_drawable);
-            totalPlayers += 1;
-        } else if (YellowP == HUMAN_PLAYER) {
-            totalPlayers -= 1;
-            binding.yellowPlayerIc.setImageResource(R.drawable.ic_person);
-        }
-//        else if (YellowP == COMP_PLAYER) binding.yellowPlayerIc.setImageResource(R.drawable.ic_ai);
-        changeCheck();
+        if (redP) players.add(1);
+        if (greenP) players.add(2);
+        if (blueP) players.add(3);
+        if (yellowP) players.add(4);
     }
 
     private void changeCheck() {
-        Log.i("PlayerConfiguration", "changeCheck: TotalPlayers - "+totalPlayers);
+        Log.i("PlayerConfiguration", "changeCheck: TotalPlayers - " + totalPlayers);
         binding.twoPlayerIc.setImageResource(R.drawable.custom_empty_drawable);
         binding.threePlayerIc.setImageResource(R.drawable.custom_empty_drawable);
         binding.fourPlayerIc.setImageResource(R.drawable.custom_empty_drawable);
@@ -152,11 +121,5 @@ public class PlayerConfigureActivity extends AppCompatActivity {
             binding.threePlayerIc.setImageResource(R.drawable.ic_check);
         if (totalPlayers == 4)
             binding.fourPlayerIc.setImageResource(R.drawable.ic_check);
-
-
-//        imageView.setImageResource(R.drawable.ic_check);
-//        if (imageView == binding.twoPlayerIc) ;
-//        else if (imageView == binding.threePlayerIc) ;
-//        else if (imageView == binding.fourPlayerIc) ;
     }
 }
