@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle("Exit")
                 .setMessage("Are you sure you want to exit?")
-                .setPositiveButton("Yes", (dialogInterface, i) -> finish())
+                .setPositiveButton("Yes", (dialogInterface, i) -> this.finishAffinity())
                 .setNegativeButton("No", null)
                 .show();
     }

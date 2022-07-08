@@ -39,6 +39,7 @@ public class LudoActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
     }
 
     @Override
@@ -54,16 +55,6 @@ public class LudoActivity extends AppCompatActivity {
         //Getting the screen resolution into point object
         Point size = new Point();
         display.getSize(size);
-//        PieceChoice choice = new PieceChoice(+2);
-//        PieceChoice choice1 = new PieceChoice(4);
-//        PieceChoice choice2 = new PieceChoice(3);
-//        PieceChoice choice3 = new PieceChoice(1);
-//        PieceChoice[] choices = new PieceChoice[4];
-//
-//        choices[0] = choice3;
-//        choices[1] = choice;
-//        choices[2] = choice2;
-//        choices[3] = choice1;
         try {
             PieceChoice[] choices = getChoices();
 
@@ -75,9 +66,9 @@ public class LudoActivity extends AppCompatActivity {
         }
     }
 
-    private PieceChoice[] getChoices(){
+    private PieceChoice[] getChoices() {
         PieceChoice[] choices = new PieceChoice[players.size()];
-        for (int i = 0; i < players.size(); i++){
+        for (int i = 0; i < players.size(); i++) {
             choices[i] = new PieceChoice(players.get(i));
         }
         return choices;
@@ -132,9 +123,9 @@ public class LudoActivity extends AppCompatActivity {
                 bluePieceColor = "#515DDA",
                 greenPieceColor = "#094702",
                 yellowPieceColor = "#b5b00b";
-        private int suffleDice = 20;
+        private int shuffleDice = 20;
         private int nextDrawTime = 0, totalPlayers = 0;
-        private boolean isShuffling = false, isMoving = false, toSuffle = false, toMove = false, isFactSet = false, toHome = false;
+        private boolean isShuffling = false, isMoving = false, toShuffle = false, toMove = false, isFactSet = false, toHome = false;
 
         private Rect rectRed, rectBlue, rectYellow, rectGreen;
         private String winText = "";
@@ -186,7 +177,7 @@ public class LudoActivity extends AppCompatActivity {
                 }
             }
 
-            toSuffle = true;
+            toShuffle = true;
         }
 
         @Override
@@ -204,7 +195,7 @@ public class LudoActivity extends AppCompatActivity {
             }
 
             if (isShuffling)
-                SuffleDice();
+                ShuffleDice();
             else if (isMoving) {
                 MovePiece();
             } else if (toHome) {
@@ -217,32 +208,32 @@ public class LudoActivity extends AppCompatActivity {
             Canvas map = new Canvas(bmpMap);
 
             float r = 40.0f;
-            int blockWidthHight = (int) (ScreenHeight * (r / 100f));
+            int blockWidthHeight = (int) (ScreenHeight * (r / 100f));
             int left = (ScreenWidth / 2) - (ScreenHeight / 2);
-            Log.d("LudoActivity", "block height " + blockWidthHight);
+            Log.d("LudoActivity", "block height " + blockWidthHeight);
 
             paint.setColor(Color.BLACK);
-            map.drawRect(left - 2, 0, blockWidthHight + left - 2, blockWidthHight, paint);
+            map.drawRect(left - 2, 0, blockWidthHeight + left - 2, blockWidthHeight, paint);
             paint.setColor(Color.RED);
-            map.drawRect(left, 2, blockWidthHight - 2 + left, blockWidthHight - 2, paint);
+            map.drawRect(left, 2, blockWidthHeight - 2 + left, blockWidthHeight - 2, paint);
 
-            int redBorderWidth = (int) ((float) blockWidthHight * (20f / 100f));
+            int redBorderWidth = (int) ((float) blockWidthHeight * (20f / 100f));
             Log.d("LudoActivity", "redBorder height " + redBorderWidth);
 
             paint.setColor(Color.BLACK);
             map.drawRect(left + redBorderWidth,
                     redBorderWidth + 2,
-                    blockWidthHight - 2 + left - redBorderWidth,
-                    blockWidthHight - 2 - redBorderWidth, paint);
+                    blockWidthHeight - 2 + left - redBorderWidth,
+                    blockWidthHeight - 2 - redBorderWidth, paint);
 
             paint.setColor(Color.WHITE);
 
             map.drawRect(left + redBorderWidth + 2,
                     redBorderWidth + 4,
-                    blockWidthHight - 2 + left - redBorderWidth - 2,
-                    blockWidthHight - 4 - redBorderWidth, paint);
+                    blockWidthHeight - 2 + left - redBorderWidth - 2,
+                    blockWidthHeight - 4 - redBorderWidth, paint);
 
-            int whiteAreaWidth = (blockWidthHight - redBorderWidth) - (redBorderWidth + 4);
+            int whiteAreaWidth = (blockWidthHeight - redBorderWidth) - (redBorderWidth + 4);
             Log.d("LudoActivity", "white area " + whiteAreaWidth);
 
             int circleWidth = (int) ((float) whiteAreaWidth * (25f / 100f));
@@ -265,7 +256,7 @@ public class LudoActivity extends AppCompatActivity {
             map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2, paint);
 
             paint.setColor(Color.BLACK);
-            int rightX = left + blockWidthHight - redBorderWidth - 2 - circleWidth;
+            int rightX = left + blockWidthHeight - redBorderWidth - 2 - circleWidth;
             int rightY = redBorderWidth + 4 + circleWidth - 2;
 
             p = new Position(rightX, rightY);
@@ -280,7 +271,7 @@ public class LudoActivity extends AppCompatActivity {
 
             paint.setColor(Color.BLACK);
 
-            int bottomLeftY = blockWidthHight - redBorderWidth - 2 - circleWidth;
+            int bottomLeftY = blockWidthHeight - redBorderWidth - 2 - circleWidth;
 
             p = new Position(leftX, bottomLeftY);
             red[2] = p;
@@ -299,24 +290,24 @@ public class LudoActivity extends AppCompatActivity {
 
             //Bottom Part(Yellow)
 
-            int topY = ScreenHeight - blockWidthHight;
+            int topY = ScreenHeight - blockWidthHeight;
             paint.setColor(Color.BLACK);
-            map.drawRect(left - 2, topY, blockWidthHight + left - 2, ScreenHeight, paint);
+            map.drawRect(left - 2, topY, blockWidthHeight + left - 2, ScreenHeight, paint);
             paint.setColor(Color.YELLOW);
-            map.drawRect(left, topY, blockWidthHight - 2 + left, ScreenHeight - 2, paint);
+            map.drawRect(left, topY, blockWidthHeight - 2 + left, ScreenHeight - 2, paint);
             Log.d("LudoActivity", "redBorder height " + redBorderWidth);
 
             paint.setColor(Color.BLACK);
             map.drawRect(left + redBorderWidth,
                     topY + redBorderWidth + 2,
-                    blockWidthHight - 2 + left - redBorderWidth,
+                    blockWidthHeight - 2 + left - redBorderWidth,
                     ScreenHeight - 2 - redBorderWidth, paint);
 
             paint.setColor(Color.WHITE);
 
             map.drawRect(left + redBorderWidth + 2,
                     topY + redBorderWidth + 4,
-                    blockWidthHight - 2 + left - redBorderWidth - 2,
+                    blockWidthHeight - 2 + left - redBorderWidth - 2,
                     ScreenHeight - 4 - redBorderWidth, paint);
 
             //YELLOW Circle
@@ -335,7 +326,7 @@ public class LudoActivity extends AppCompatActivity {
             map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2, paint);
 
             paint.setColor(Color.BLACK);
-            rightX = left + blockWidthHight - redBorderWidth - 2 - circleWidth;
+            rightX = left + blockWidthHeight - redBorderWidth - 2 - circleWidth;
             rightY = topY + redBorderWidth + 4 + circleWidth - 2;
 
             p = new Position(rightX, rightY);
@@ -370,24 +361,24 @@ public class LudoActivity extends AppCompatActivity {
 
             //Top right (GREEN)
 
-            int topRightX = ScreenHeight - blockWidthHight + left;
+            int topRightX = ScreenHeight - blockWidthHeight + left;
             paint.setColor(Color.BLACK);
-            map.drawRect(topRightX - 2, 0, ScreenHeight + left, blockWidthHight, paint);
+            map.drawRect(topRightX - 2, 0, ScreenHeight + left, blockWidthHeight, paint);
             paint.setColor(Color.GREEN);
-            map.drawRect(topRightX + 2, 2, ScreenHeight + left - 2, blockWidthHight - 2, paint);
+            map.drawRect(topRightX + 2, 2, ScreenHeight + left - 2, blockWidthHeight - 2, paint);
 
             paint.setColor(Color.BLACK);
             map.drawRect(topRightX + redBorderWidth,
                     redBorderWidth + 2,
                     left + ScreenHeight - redBorderWidth,
-                    blockWidthHight - 2 - redBorderWidth, paint);
+                    blockWidthHeight - 2 - redBorderWidth, paint);
 
             paint.setColor(Color.WHITE);
 
             map.drawRect(topRightX + redBorderWidth + 2,
                     redBorderWidth + 4,
                     left + ScreenHeight - redBorderWidth - 2,
-                    blockWidthHight - 4 - redBorderWidth, paint);
+                    blockWidthHeight - 4 - redBorderWidth, paint);
 
 
             //GREEN Circle
@@ -399,14 +390,14 @@ public class LudoActivity extends AppCompatActivity {
             green[0] = p;
 
             paint.setColor(Color.BLACK);
-            map.drawCircle((float) leftX, (float) leftY, circleWidth / 2, paint);
+            map.drawCircle((float) leftX, (float) leftY, circleWidth / 2f, paint);
 
             paint.setColor(Color.GREEN);
 
-            map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2f, paint);
 
             paint.setColor(Color.BLACK);
-            rightX = topRightX + blockWidthHight - redBorderWidth - 2 - circleWidth;
+            rightX = topRightX + blockWidthHeight - redBorderWidth - 2 - circleWidth;
             rightY = redBorderWidth + 4 + circleWidth - 2;
 
             p = new Position(rightX, rightY);
@@ -421,7 +412,7 @@ public class LudoActivity extends AppCompatActivity {
 
             paint.setColor(Color.BLACK);
 
-            bottomLeftY = blockWidthHight - redBorderWidth - 2 - circleWidth;
+            bottomLeftY = blockWidthHeight - redBorderWidth - 2 - circleWidth;
 
             p = new Position(leftX, bottomLeftY);
             green[2] = p;
@@ -475,7 +466,7 @@ public class LudoActivity extends AppCompatActivity {
             map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2, paint);
 
             paint.setColor(Color.BLACK);
-            rightX = topRightX + blockWidthHight - redBorderWidth - 2 - circleWidth;
+            rightX = topRightX + blockWidthHeight - redBorderWidth - 2 - circleWidth;
             rightY = topY + redBorderWidth + 4 + circleWidth - 2;
 
             p = new Position(rightX, rightY);
@@ -518,7 +509,7 @@ public class LudoActivity extends AppCompatActivity {
             //path between red and yellow
             redPath = new Position[6];
             for (int i = 0; i < 3; i++) {
-                int pathY = blockWidthHight + (siglePathWidth * i);
+                int pathY = blockWidthHeight + (siglePathWidth * i);
                 int pathX = left;
                 for (int j = 0; j < 6; j++) {
                     paint.setColor(Color.BLACK);
@@ -577,8 +568,8 @@ public class LudoActivity extends AppCompatActivity {
             //path between green and red
             greenPath = new Position[6];
             for (int i = 0; i < 3; i++) {
-                int pathY = 0; //blockWidthHight + (siglePathWidth * i);
-                int pathX = left + blockWidthHight + (siglePathWidth * i);
+                int pathY = 0; //blockWidthHeight + (siglePathWidth * i);
+                int pathX = left + blockWidthHeight + (siglePathWidth * i);
                 for (int j = 0; j < 6; j++) {
                     paint.setColor(Color.BLACK);
                     map.drawRect(pathX - 2, pathY, pathX + siglePathWidth, pathY + siglePathWidth, paint);
@@ -634,7 +625,7 @@ public class LudoActivity extends AppCompatActivity {
             //path between green and blue
             bluePath = new Position[6];
             for (int i = 0; i < 3; i++) {
-                int pathY = blockWidthHight + (siglePathWidth * i);
+                int pathY = blockWidthHeight + (siglePathWidth * i);
                 int pathX = left + ScreenHeight - siglePathWidth;
                 for (int j = 0; j < 6; j++) {
                     paint.setColor(Color.BLACK);
@@ -688,8 +679,8 @@ public class LudoActivity extends AppCompatActivity {
             //path between yellow and blue
             yellowPath = new Position[6];
             for (int i = 0; i < 3; i++) {
-                int pathY = ScreenHeight - blockWidthHight; //blockWidthHight + (siglePathWidth * i);
-                int pathX = left + blockWidthHight + (siglePathWidth * i);
+                int pathY = ScreenHeight - blockWidthHeight; //blockWidthHeight + (siglePathWidth * i);
+                int pathX = left + blockWidthHeight + (siglePathWidth * i);
                 for (int j = 0; j < 6; j++) {
                     paint.setColor(Color.BLACK);
                     map.drawRect(pathX - 2, pathY, pathX + siglePathWidth, pathY + siglePathWidth, paint);
@@ -786,48 +777,48 @@ public class LudoActivity extends AppCompatActivity {
             }
 
             paint.setColor(Color.BLACK);
-            map.drawRect(left + blockWidthHight, blockWidthHight,
-                    left + blockWidthHight + pathWidth, blockWidthHight + pathWidth, paint);
+            map.drawRect(left + blockWidthHeight, blockWidthHeight,
+                    left + blockWidthHeight + pathWidth, blockWidthHeight + pathWidth, paint);
 //                        paint.setColor(Color.RED);
-//                        map.drawRect(50 + blockWidthHight+2,blockWidthHight+2,
-//                        50 + blockWidthHight + pathWidth-2,blockWidthHight + pathWidth-2,paint);
+//                        map.drawRect(50 + blockWidthHeight+2,blockWidthHeight+2,
+//                        50 + blockWidthHeight + pathWidth-2,blockWidthHeight + pathWidth-2,paint);
 
             paint.setColor(Color.RED);
             Path path = new Path();
-            path.moveTo(left + blockWidthHight + 2, blockWidthHight + 2);
-            path.lineTo(left + blockWidthHight + 2, blockWidthHight + pathWidth - 2);
-            path.lineTo(left + blockWidthHight + (pathWidth / 2), blockWidthHight + (pathWidth / 2));
-            path.lineTo(left + blockWidthHight + 2, blockWidthHight + 2);
+            path.moveTo(left + blockWidthHeight + 2, blockWidthHeight + 2);
+            path.lineTo(left + blockWidthHeight + 2, blockWidthHeight + pathWidth - 2);
+            path.lineTo(left + blockWidthHeight + (pathWidth / 2), blockWidthHeight + (pathWidth / 2));
+            path.lineTo(left + blockWidthHeight + 2, blockWidthHeight + 2);
             path.close();
             map.drawPath(path, paint);
 
             paint.setColor(Color.BLUE);
 
             path = new Path();
-            path.moveTo(left + blockWidthHight + pathWidth - 2, blockWidthHight + 2);
-            path.lineTo(left + blockWidthHight + pathWidth - 2, blockWidthHight + pathWidth - 2);
-            path.lineTo(left + blockWidthHight + (pathWidth / 2), blockWidthHight + (pathWidth / 2));
-            path.lineTo(left + blockWidthHight + pathWidth - 2, blockWidthHight + 2);
+            path.moveTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + 2);
+            path.lineTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + pathWidth - 2);
+            path.lineTo(left + blockWidthHeight + (pathWidth / 2), blockWidthHeight + (pathWidth / 2));
+            path.lineTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + 2);
             path.close();
 
             map.drawPath(path, paint);
 
             paint.setColor(Color.GREEN);
             path = new Path();
-            path.moveTo(left + blockWidthHight + 2, blockWidthHight + 2);
-            path.lineTo(left + blockWidthHight + pathWidth - 2, blockWidthHight + 2);
-            path.lineTo(left + blockWidthHight + (pathWidth / 2), blockWidthHight + (pathWidth / 2));
-            path.lineTo(left + blockWidthHight + 2, blockWidthHight + 2);
+            path.moveTo(left + blockWidthHeight + 2, blockWidthHeight + 2);
+            path.lineTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + 2);
+            path.lineTo(left + blockWidthHeight + (pathWidth / 2), blockWidthHeight + (pathWidth / 2));
+            path.lineTo(left + blockWidthHeight + 2, blockWidthHeight + 2);
             path.close();
 
             map.drawPath(path, paint);
 
             paint.setColor(Color.YELLOW);
             path = new Path();
-            path.moveTo(left + blockWidthHight + 2, blockWidthHight + pathWidth - 2);
-            path.lineTo(left + blockWidthHight + pathWidth - 2, blockWidthHight + pathWidth - 2);
-            path.lineTo(left + blockWidthHight + (pathWidth / 2), blockWidthHight + (pathWidth / 2));
-            path.lineTo(left + blockWidthHight + 2, blockWidthHight + pathWidth - 2);
+            path.moveTo(left + blockWidthHeight + 2, blockWidthHeight + pathWidth - 2);
+            path.lineTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + pathWidth - 2);
+            path.lineTo(left + blockWidthHeight + (pathWidth / 2), blockWidthHeight + (pathWidth / 2));
+            path.lineTo(left + blockWidthHeight + 2, blockWidthHeight + pathWidth - 2);
             path.close();
 
             map.drawPath(path, paint);
@@ -911,7 +902,7 @@ public class LudoActivity extends AppCompatActivity {
                     paint.setTextSize(150);
                     paint.setTextAlign(Paint.Align.CENTER);
                     paint.setColor(getColor(R.color.colorPrimaryDark));
-                    canvas.drawText(winText, canvas.getWidth() / 2, canvas.getHeight() / 2, paint);
+                    canvas.drawText(winText, canvas.getWidth() / 3f, canvas.getHeight() / 2, paint);
                 }
                 holder.unlockCanvasAndPost(canvas);
             }
@@ -1347,73 +1338,73 @@ public class LudoActivity extends AppCompatActivity {
 
             if (!gameFinished) {
                 if (placeToMove == 6) {
-                    toSuffle = true;
+                    toShuffle = true;
                     placeToMove = 0;
                     return;
                 }
                 placeToMove = 0;
 
                 if (t == Turn.RED) {
-                    if (playerGreen != null && playerGreen.getWin() == false) {
+                    if (playerGreen != null && !playerGreen.getWin()) {
                         t = Turn.GREEN;
-                        toSuffle = true;
-                    } else if (playerBlue != null && playerBlue.getWin() == false) {
+                        toShuffle = true;
+                    } else if (playerBlue != null && !playerBlue.getWin()) {
                         t = Turn.BLUE;
-                        toSuffle = true;
-                    } else if (playerYellow != null && playerYellow.getWin() == false) {
+                        toShuffle = true;
+                    } else if (playerYellow != null && !playerYellow.getWin()) {
                         t = Turn.YELLOW;
-                        toSuffle = true;
+                        toShuffle = true;
                     }
                 } else if (t == Turn.GREEN) {
-                    if (playerBlue != null && playerGreen.getWin() == false) {
+                    if (playerBlue != null && !playerGreen.getWin()) {
                         t = Turn.BLUE;
-                        toSuffle = true;
-                    } else if (playerYellow != null && playerYellow.getWin() == false) {
+                        toShuffle = true;
+                    } else if (playerYellow != null && !playerYellow.getWin()) {
                         t = Turn.YELLOW;
-                        toSuffle = true;
-                    } else if (playerRed != null && playerRed.getWin() == false) {
+                        toShuffle = true;
+                    } else if (playerRed != null && !playerRed.getWin()) {
                         t = Turn.RED;
-                        toSuffle = true;
+                        toShuffle = true;
                     }
                 } else if (t == Turn.BLUE) {
-                    if (playerYellow != null && playerYellow.getWin() == false) {
+                    if (playerYellow != null && !playerYellow.getWin()) {
                         t = Turn.YELLOW;
-                        toSuffle = true;
-                    } else if (playerRed != null && playerRed.getWin() == false) {
+                        toShuffle = true;
+                    } else if (playerRed != null && !playerRed.getWin()) {
                         t = Turn.RED;
-                        toSuffle = true;
-                    } else if (playerGreen != null && playerGreen.getWin() == false) {
+                        toShuffle = true;
+                    } else if (playerGreen != null && !playerGreen.getWin()) {
                         t = Turn.GREEN;
-                        toSuffle = true;
+                        toShuffle = true;
                     }
 
                 } else if (t == Turn.YELLOW) {
-                    if (playerRed != null && playerRed.getWin() == false) {
+                    if (playerRed != null && !playerRed.getWin()) {
                         t = Turn.RED;
-                        toSuffle = true;
-                    } else if (playerGreen != null && playerGreen.getWin() == false) {
+                        toShuffle = true;
+                    } else if (playerGreen != null && !playerGreen.getWin()) {
                         t = Turn.GREEN;
-                        toSuffle = true;
-                    } else if (playerBlue != null && playerBlue.getWin() == false) {
+                        toShuffle = true;
+                    } else if (playerBlue != null && !playerBlue.getWin()) {
                         t = Turn.BLUE;
-                        toSuffle = true;
+                        toShuffle = true;
                     }
                 }
             }
         }
 
-        private void SuffleDice() {
+        private void ShuffleDice() {
             Random r = new Random();
             int next = r.nextInt(6) + 1;
-            if (suffleDice <= 0) {
-                suffleDice = 100;
+            if (shuffleDice <= 0) {
+                shuffleDice = 20;
                 isShuffling = false;
-                toSuffle = false;
+                toShuffle = false;
                 placeToMove = getNextNo(next);
                 checkCanMove();
             } else {
                 getNextNo(next);
-                suffleDice--;
+                shuffleDice--;
             }
         }
 
@@ -1423,18 +1414,18 @@ public class LudoActivity extends AppCompatActivity {
                 int moveCount = 0;
                 int id = 0;
                 for (int i = 0; i < pieces.length; i++) {
-                    if ((pieces[i].getIsKilled() == false || placeToMove == 6) &&
-                            (pieces[i].getComplete() == false && playerRed.checkCanMove(i, placeToMove))) {
+                    if ((!pieces[i].getIsKilled() || placeToMove == 6) &&
+                            (!pieces[i].getComplete() && playerRed.checkCanMove(i, placeToMove))) {
                         toMove = true;
                         moveCount++;
                         id = i;
                     }
                 }
-                if (toMove == false)
+                if (!toMove)
                     nextDrawTime = 30;
                 else if (moveCount == 1) {
                     isMoving = true;
-                    if (pieces[id].getComplete() == false) {
+                    if (!pieces[id].getComplete()) {
                         if (playerRed.checkCanMove(id, placeToMove)) {
                             isMoving = true;
                             pieces[id].setTarget(placeToMove);
@@ -1449,18 +1440,18 @@ public class LudoActivity extends AppCompatActivity {
                 int moveCount = 0;
                 int id = 0;
                 for (int i = 0; i < pieces.length; i++) {
-                    if ((pieces[i].getIsKilled() == false || placeToMove == 6) &&
-                            (pieces[i].getComplete() == false && playerBlue.checkCanMove(i, placeToMove))) {
+                    if ((!pieces[i].getIsKilled() || placeToMove == 6) &&
+                            (!pieces[i].getComplete() && playerBlue.checkCanMove(i, placeToMove))) {
                         toMove = true;
                         moveCount++;
                         id = i;
                     }
                 }
-                if (toMove == false)
+                if (!toMove)
                     nextDrawTime = 30;
                 else if (moveCount == 1) {
                     isMoving = true;
-                    if (pieces[id].getComplete() == false) {
+                    if (!pieces[id].getComplete()) {
                         if (playerBlue.checkCanMove(id, placeToMove)) {
                             isMoving = true;
                             pieces[id].setTarget(placeToMove);
@@ -1475,18 +1466,18 @@ public class LudoActivity extends AppCompatActivity {
                 int moveCount = 0;
                 int id = 0;
                 for (int i = 0; i < pieces.length; i++) {
-                    if ((pieces[i].getIsKilled() == false || placeToMove == 6) &&
-                            (pieces[i].getComplete() == false && playerGreen.checkCanMove(i, placeToMove))) {
+                    if ((!pieces[i].getIsKilled() || placeToMove == 6) &&
+                            (!pieces[i].getComplete() && playerGreen.checkCanMove(i, placeToMove))) {
                         toMove = true;
                         moveCount++;
                         id = i;
                     }
                 }
-                if (toMove == false)
+                if (!toMove)
                     nextDrawTime = 30;
                 else if (moveCount == 1) {
                     isMoving = true;
-                    if (pieces[id].getComplete() == false) {
+                    if (!pieces[id].getComplete()) {
                         if (playerGreen.checkCanMove(id, placeToMove)) {
                             isMoving = true;
                             pieces[id].setTarget(placeToMove);
@@ -1501,18 +1492,18 @@ public class LudoActivity extends AppCompatActivity {
                 int moveCount = 0;
                 int id = 0;
                 for (int i = 0; i < pieces.length; i++) {
-                    if ((pieces[i].getIsKilled() == false || placeToMove == 6) &&
-                            (pieces[i].getComplete() == false && playerYellow.checkCanMove(i, placeToMove))) {
+                    if ((!pieces[i].getIsKilled() || placeToMove == 6) &&
+                            (!pieces[i].getComplete() && playerYellow.checkCanMove(i, placeToMove))) {
                         toMove = true;
                         moveCount++;
                         id = i;
                     }
                 }
-                if (toMove == false)
+                if (!toMove)
                     nextDrawTime = 30;
                 else if (moveCount == 1) {
                     isMoving = true;
-                    if (pieces[id].getComplete() == false) {
+                    if (!pieces[id].getComplete()) {
                         if (playerYellow.checkCanMove(id, placeToMove)) {
                             isMoving = true;
                             pieces[id].setTarget(placeToMove);
@@ -1654,10 +1645,10 @@ public class LudoActivity extends AppCompatActivity {
                 }
             }
 
-            if (toSuffle == false && toMove == false && toHome == false && nextDrawTime > 0)
+            if (!toShuffle && !toMove && !toHome && nextDrawTime > 0)
                 nextDrawTime--;
 
-            if (toSuffle == false && toMove == false && toHome == false && nextDrawTime <= 0) {
+            if (!toShuffle && !toMove && !toHome && nextDrawTime <= 0) {
                 SetNextTurn();
             }
         }
@@ -1763,117 +1754,46 @@ public class LudoActivity extends AppCompatActivity {
         @Override
         public boolean onTouchEvent(MotionEvent event) {
 
-            if (gameFinished == false) {
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_UP:
-                        if (toSuffle) {
-                            if (!toHome) {
-                                if (t == Turn.RED) {
-                                    if (rectRed.contains((int) event.getX(), (int) event.getY())) {
-                                        isShuffling = true;
-                                    }
-                                } else if (t == Turn.YELLOW) {
-                                    if (rectYellow.contains((int) event.getX(), (int) event.getY())) {
-                                        isShuffling = true;
-                                    }
-                                } else if (t == Turn.GREEN) {
-                                    if (rectGreen.contains((int) event.getX(), (int) event.getY())) {
-                                        Log.d("LudoActivity", "Touch X : " + event.getX() + " Touch Y : " + event.getY());
-                                        isShuffling = true;
-                                    }
-                                } else if (t == Turn.BLUE) {
-                                    if (rectBlue.contains((int) event.getX(), (int) event.getY())) {
-                                        isShuffling = true;
-                                    }
-                                }
-                            }
-                        } else if (toMove) {
+            if (!gameFinished) {
+                if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                    if (toShuffle) {
+                        if (!toHome) {
                             if (t == Turn.RED) {
-                                if (!isMoving) {
-                                    Piece[] pieces = playerRed.getRedPiecePositions();
-
-                                    for (int i = 0; i < pieces.length; i++) {
-                                        {
-                                            if (pieces[i].getCollision().contains((int) event.getX(), (int) event.getY())) {
-                                                Log.d("LudoActivity", "On Piece");
-                                                if (pieces[i].getIsKilled() == false || placeToMove == 6) {
-                                                    Log.d("LudoActivity", "Click on Yellow");
-                                                    if (pieces[i].getComplete() == false) {
-                                                        if (playerRed.checkCanMove(i, placeToMove)) {
-                                                            isMoving = true;
-                                                            pieces[i].setTarget(placeToMove);
-                                                            pieces[i].setMove(true);
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                if (rectRed.contains((int) event.getX(), (int) event.getY())) {
+                                    isShuffling = true;
                                 }
                             } else if (t == Turn.YELLOW) {
-                                if (!isMoving) {
-                                    Piece[] pieces = playerYellow.getRedPiecePositions();
-
-                                    for (int i = 0; i < pieces.length; i++) {
-                                        {
-                                            if (pieces[i].getCollision().contains((int) event.getX(), (int) event.getY())) {
-                                                Log.d("LudoActivity", "On Piece");
-                                                if (pieces[i].getIsKilled() == false || placeToMove == 6) {
-                                                    Log.d("LudoActivity", "Click on Yellow");
-                                                    if (pieces[i].getComplete() == false) {
-                                                        if (playerYellow.checkCanMove(i, placeToMove)) {
-                                                            isMoving = true;
-                                                            pieces[i].setTarget(placeToMove);
-                                                            pieces[i].setMove(true);
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                if (rectYellow.contains((int) event.getX(), (int) event.getY())) {
+                                    isShuffling = true;
                                 }
                             } else if (t == Turn.GREEN) {
-                                if (!isMoving) {
-                                    Piece[] pieces = playerGreen.getRedPiecePositions();
-
-                                    for (int i = 0; i < pieces.length; i++) {
-                                        {
-                                            if (pieces[i].getCollision().contains((int) event.getX(), (int) event.getY())) {
-                                                Log.d("LudoActivity", "On Piece");
-                                                if (pieces[i].getIsKilled() == false || placeToMove == 6) {
-                                                    Log.d("LudoActivity", "Click on Green");
-                                                    if (pieces[i].getComplete() == false) {
-                                                        if (playerGreen.checkCanMove(i, placeToMove)) {
-                                                            isMoving = true;
-                                                            pieces[i].setTarget(placeToMove);
-                                                            pieces[i].setMove(true);
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                if (rectGreen.contains((int) event.getX(), (int) event.getY())) {
+                                    Log.d("LudoActivity", "Touch X : " + event.getX() + " Touch Y : " + event.getY());
+                                    isShuffling = true;
                                 }
                             } else if (t == Turn.BLUE) {
-                                if (!isMoving) {
-                                    Piece[] pieces = playerBlue.getRedPiecePositions();
+                                if (rectBlue.contains((int) event.getX(), (int) event.getY())) {
+                                    isShuffling = true;
+                                }
+                            }
+                        }
+                    } else if (toMove) {
+                        if (t == Turn.RED) {
+                            if (!isMoving) {
+                                Piece[] pieces = playerRed.getRedPiecePositions();
 
-                                    for (int i = 0; i < pieces.length; i++) {
-                                        {
-                                            if (pieces[i].getCollision().contains((int) event.getX(), (int) event.getY())) {
-                                                Log.d("LudoActivity", "On Piece");
-                                                if (pieces[i].getIsKilled() == false || placeToMove == 6) {
-                                                    Log.d("LudoActivity", "Click on blue");
-                                                    if (pieces[i].getComplete() == false) {
-                                                        if (playerBlue.checkCanMove(i, placeToMove)) {
-                                                            isMoving = true;
-                                                            pieces[i].setTarget(placeToMove);
-                                                            pieces[i].setMove(true);
-                                                            break;
-                                                        }
+                                for (int i = 0; i < pieces.length; i++) {
+                                    {
+                                        if (pieces[i].getCollision().contains((int) event.getX(), (int) event.getY())) {
+                                            Log.d("LudoActivity", "On Piece");
+                                            if (!pieces[i].getIsKilled() || placeToMove == 6) {
+                                                Log.d("LudoActivity", "Click on Yellow");
+                                                if (!pieces[i].getComplete()) {
+                                                    if (playerRed.checkCanMove(i, placeToMove)) {
+                                                        isMoving = true;
+                                                        pieces[i].setTarget(placeToMove);
+                                                        pieces[i].setMove(true);
+                                                        break;
                                                     }
                                                 }
                                             }
@@ -1881,9 +1801,78 @@ public class LudoActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-                        } else
-                            return false;
-                        break;
+                        } else if (t == Turn.YELLOW) {
+                            if (!isMoving) {
+                                Piece[] pieces = playerYellow.getRedPiecePositions();
+
+                                for (int i = 0; i < pieces.length; i++) {
+                                    {
+                                        if (pieces[i].getCollision().contains((int) event.getX(), (int) event.getY())) {
+                                            Log.d("LudoActivity", "On Piece");
+                                            if (!pieces[i].getIsKilled() || placeToMove == 6) {
+                                                Log.d("LudoActivity", "Click on Yellow");
+                                                if (!pieces[i].getComplete()) {
+                                                    if (playerYellow.checkCanMove(i, placeToMove)) {
+                                                        isMoving = true;
+                                                        pieces[i].setTarget(placeToMove);
+                                                        pieces[i].setMove(true);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else if (t == Turn.GREEN) {
+                            if (!isMoving) {
+                                Piece[] pieces = playerGreen.getRedPiecePositions();
+
+                                for (int i = 0; i < pieces.length; i++) {
+                                    {
+                                        if (pieces[i].getCollision().contains((int) event.getX(), (int) event.getY())) {
+                                            Log.d("LudoActivity", "On Piece");
+                                            if (!pieces[i].getIsKilled() || placeToMove == 6) {
+                                                Log.d("LudoActivity", "Click on Green");
+                                                if (!pieces[i].getComplete()) {
+                                                    if (playerGreen.checkCanMove(i, placeToMove)) {
+                                                        isMoving = true;
+                                                        pieces[i].setTarget(placeToMove);
+                                                        pieces[i].setMove(true);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else if (t == Turn.BLUE) {
+                            if (!isMoving) {
+                                Piece[] pieces = playerBlue.getRedPiecePositions();
+
+                                for (int i = 0; i < pieces.length; i++) {
+                                    {
+                                        if (pieces[i].getCollision().contains((int) event.getX(), (int) event.getY())) {
+                                            Log.d("LudoActivity", "On Piece");
+                                            if (!pieces[i].getIsKilled() || placeToMove == 6) {
+                                                Log.d("LudoActivity", "Click on blue");
+                                                if (!pieces[i].getComplete()) {
+                                                    if (playerBlue.checkCanMove(i, placeToMove)) {
+                                                        isMoving = true;
+                                                        pieces[i].setTarget(placeToMove);
+                                                        pieces[i].setMove(true);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else
+                        return false;
                 }
             } else {
                 startActivity(new Intent(context, MainActivity.class));

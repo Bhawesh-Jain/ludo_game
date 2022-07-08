@@ -2,7 +2,6 @@ package com.tdevelopments.ludo_game;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -110,16 +109,12 @@ public class PlayerConfigureActivity extends AppCompatActivity {
     }
 
     private void changeCheck() {
-        Log.i("PlayerConfiguration", "changeCheck: TotalPlayers - " + totalPlayers);
         binding.twoPlayerIc.setImageResource(R.drawable.custom_empty_drawable);
         binding.threePlayerIc.setImageResource(R.drawable.custom_empty_drawable);
         binding.fourPlayerIc.setImageResource(R.drawable.custom_empty_drawable);
 
-        if (totalPlayers == 2)
-            binding.twoPlayerIc.setImageResource(R.drawable.ic_check);
-        if (totalPlayers == 3)
-            binding.threePlayerIc.setImageResource(R.drawable.ic_check);
-        if (totalPlayers == 4)
-            binding.fourPlayerIc.setImageResource(R.drawable.ic_check);
+        if (totalPlayers == 2) binding.twoPlayerIc.setImageResource(R.drawable.ic_check);
+        if (totalPlayers == 3) binding.threePlayerIc.setImageResource(R.drawable.ic_check);
+        if (totalPlayers == 4) binding.fourPlayerIc.setImageResource(R.drawable.ic_check);
     }
 }
