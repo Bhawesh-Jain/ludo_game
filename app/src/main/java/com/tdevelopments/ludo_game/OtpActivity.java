@@ -24,10 +24,10 @@ public class OtpActivity extends AppCompatActivity {
     }
 
     private void verify() {
-        if (binding.otpPinView.getText() != null && binding.otpPinView.getText().length() == 4) {
+//        if (binding.otpPinView.getText() != null && binding.otpPinView.getText().length() == 4) {
             Intent intent = new Intent(OtpActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-        } else Toast.makeText(this, "Enter a valid Otp first!", Toast.LENGTH_SHORT).show();
+//        } else Toast.makeText(this, "Enter a valid Otp first!", Toast.LENGTH_SHORT).show();
     }
 }

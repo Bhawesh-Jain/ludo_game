@@ -121,7 +121,7 @@ public class LudoActivity extends AppCompatActivity {
         private int placeToMove = 0;
         private String redPieceColor = "#710f01",
                 bluePieceColor = "#515DDA",
-                greenPieceColor = "#094702",
+                greenPieceColor = "#0bbf17",
                 yellowPieceColor = "#b5b00b";
         private int shuffleDice = 20;
         private int nextDrawTime = 0, totalPlayers = 0;
@@ -899,10 +899,10 @@ public class LudoActivity extends AppCompatActivity {
                 DrawArrows();
 
                 if (gameFinished) {
-                    paint.setTextSize(150);
+                    paint.setTextSize(50);
                     paint.setTextAlign(Paint.Align.CENTER);
-                    paint.setColor(getColor(R.color.colorPrimaryDark));
-                    canvas.drawText(winText, canvas.getWidth() / 3f, canvas.getHeight() / 2, paint);
+                    paint.setColor(getColor(R.color.gold));
+                    canvas.drawText(winText, canvas.getWidth() / 2, canvas.getHeight() / 2, paint);
                 }
                 holder.unlockCanvasAndPost(canvas);
             }

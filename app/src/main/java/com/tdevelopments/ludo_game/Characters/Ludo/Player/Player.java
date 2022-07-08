@@ -134,10 +134,8 @@ public class Player {
             return true;
         else if(r == 2)
         {
-            if(isPass)
-                return  true;
-            else
-                return false;
+//            return isPass;
+            return true;
         }
         else
             return false;
@@ -159,3 +157,4 @@ public class Player {
         return pieces;
     }
 }
+

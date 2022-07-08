@@ -15,7 +15,7 @@ public class Piece {
 
     private PathPostion[] path;
     Rect collision;
-    private int pieceSize, speed = 8;
+    private int pieceSize, speed = 10;
 
     private int currentIndex,target,factorX,factorY, targetX,targetY, currentX,currentY;
 
