@@ -33,7 +33,6 @@ public class LudoActivity extends AppCompatActivity {
     public static PathPostion[] romPath;
     private LudoGameView ludoGameView;
     private ArrayList<Integer> players;
-    private int max = 0;
 
     @Override
     public void onBackPressed() {
@@ -90,10 +89,10 @@ public class LudoActivity extends AppCompatActivity {
         RED,
         GREEN,
         BLUE,
-        YELLOW;
+        YELLOW
     }
 
-    class PieceChoice {
+    static class PieceChoice {
         public int PlayerId;
 
         public PieceChoice(int id) {
@@ -104,30 +103,49 @@ public class LudoActivity extends AppCompatActivity {
     private class LudoGameView extends SurfaceView implements Runnable {
 
         Turn t;
-        private Context context;
+        private final Context context;
         private Thread gameThread;
-        private SurfaceHolder holder;
+        private final SurfaceHolder holder;
         private Canvas canvas;
-        private Paint paint;
-        private int ScreenWidth, ScreenHeight;
+        private final Paint paint;
+        private final int ScreenWidth;
+        private final int ScreenHeight;
         private boolean isPlaying, gameFinished = false;
         private Position[] red, blue, yellow, green;
         private Position[] redPath, bluePath, yellowPath, greenPath;
         private int CircleSize;
-        private Bitmap bmpStar, bmpStarWhite, bmpMap, bmpDice;
+        private final Bitmap bmpStar;
+        private final Bitmap bmpStarWhite;
+        private Bitmap bmpMap;
+        private Bitmap bmpDice;
         private Bitmap bmpRedPiece, bmpGreenPiece, bmpYellowPiece, bmpBluePiece;
         private Player playerRed, playerBlue, playerGreen, playerYellow;
-        private boolean initRed, initBlue, initGreen, initYellow, moveRed, moveGreen, moveYellow, moveBlue;
+        private boolean initRed;
+        private boolean initBlue;
+        private boolean initGreen;
+        private boolean initYellow;
+        private final boolean moveRed;
+        private boolean moveGreen;
+        private boolean moveYellow;
+        private boolean moveBlue;
         private int placeToMove = 0;
-        private String redPieceColor = "#710f01",
-                bluePieceColor = "#515DDA",
-                greenPieceColor = "#0bbf17",
-                yellowPieceColor = "#b5b00b";
+        private final String redPieceColor = "#710f01";
+        private final String bluePieceColor = "#515DDA";
+        private final String greenPieceColor = "#0bbf17";
+        private final String yellowPieceColor = "#b5b00b";
         private int shuffleDice = 20;
         private int nextDrawTime = 0, totalPlayers = 0;
-        private boolean isShuffling = false, isMoving = false, toShuffle = false, toMove = false, isFactSet = false, toHome = false;
+        private boolean isShuffling = false;
+        private boolean isMoving = false;
+        private boolean toShuffle = false;
+        private boolean toMove = false;
+        private final boolean isFactSet = false;
+        private boolean toHome = false;
 
-        private Rect rectRed, rectBlue, rectYellow, rectGreen;
+        private final Rect rectRed;
+        private final Rect rectBlue;
+        private final Rect rectYellow;
+        private final Rect rectGreen;
         private String winText = "";
 
         public LudoGameView(Context context, int screenX, int screenY, PieceChoice[] choices) {
@@ -249,11 +267,11 @@ public class LudoActivity extends AppCompatActivity {
             red[0] = p;
 
             paint.setColor(Color.BLACK);
-            map.drawCircle((float) leftX, (float) leftY, circleWidth / 2, paint);
+            map.drawCircle((float) leftX, (float) leftY, circleWidth / 2f, paint);
 
             paint.setColor(Color.RED);
 
-            map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2f, paint);
 
             paint.setColor(Color.BLACK);
             int rightX = left + blockWidthHeight - redBorderWidth - 2 - circleWidth;
@@ -262,12 +280,12 @@ public class LudoActivity extends AppCompatActivity {
             p = new Position(rightX, rightY);
             red[1] = p;
             map.drawCircle((float) rightX,
-                    (float) rightY, circleWidth / 2, paint);
+                    (float) rightY, circleWidth / 2f, paint);
 
             paint.setColor(Color.RED);
 
             map.drawCircle((float) rightX,
-                    (float) rightY, (circleWidth - 4) / 2, paint);
+                    (float) rightY, (circleWidth - 4) / 2f, paint);
 
             paint.setColor(Color.BLACK);
 
@@ -275,18 +293,18 @@ public class LudoActivity extends AppCompatActivity {
 
             p = new Position(leftX, bottomLeftY);
             red[2] = p;
-            map.drawCircle((float) leftX, (float) bottomLeftY, circleWidth / 2, paint);
+            map.drawCircle((float) leftX, (float) bottomLeftY, circleWidth / 2f, paint);
 
             paint.setColor(Color.RED);
 
-            map.drawCircle((float) leftX, (float) bottomLeftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) leftX, (float) bottomLeftY, (circleWidth - 4) / 2f, paint);
 
             p = new Position(rightX, bottomLeftY);
             red[3] = p;
             paint.setColor(Color.BLACK);
-            map.drawCircle((float) rightX, (float) bottomLeftY, circleWidth / 2, paint);
+            map.drawCircle((float) rightX, (float) bottomLeftY, circleWidth / 2f, paint);
             paint.setColor(Color.RED);
-            map.drawCircle((float) rightX, (float) bottomLeftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) rightX, (float) bottomLeftY, (circleWidth - 4) / 2f, paint);
 
             //Bottom Part(Yellow)
 
@@ -319,11 +337,11 @@ public class LudoActivity extends AppCompatActivity {
             yellow[0] = p;
 
             paint.setColor(Color.BLACK);
-            map.drawCircle((float) leftX, (float) leftY, circleWidth / 2, paint);
+            map.drawCircle((float) leftX, (float) leftY, circleWidth / 2f, paint);
 
             paint.setColor(Color.YELLOW);
 
-            map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2f, paint);
 
             paint.setColor(Color.BLACK);
             rightX = left + blockWidthHeight - redBorderWidth - 2 - circleWidth;
@@ -332,12 +350,12 @@ public class LudoActivity extends AppCompatActivity {
             p = new Position(rightX, rightY);
             yellow[1] = p;
             map.drawCircle((float) rightX,
-                    (float) rightY, circleWidth / 2, paint);
+                    (float) rightY, circleWidth / 2f, paint);
 
             paint.setColor(Color.YELLOW);
 
             map.drawCircle((float) rightX,
-                    (float) rightY, (circleWidth - 4) / 2, paint);
+                    (float) rightY, (circleWidth - 4) / 2f, paint);
 
             paint.setColor(Color.BLACK);
 
@@ -345,18 +363,18 @@ public class LudoActivity extends AppCompatActivity {
 
             p = new Position(leftX, bottomLeftY);
             yellow[2] = p;
-            map.drawCircle((float) leftX, (float) bottomLeftY, circleWidth / 2, paint);
+            map.drawCircle((float) leftX, (float) bottomLeftY, circleWidth / 2f, paint);
 
             paint.setColor(Color.YELLOW);
 
-            map.drawCircle((float) leftX, (float) bottomLeftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) leftX, (float) bottomLeftY, (circleWidth - 4) / 2f, paint);
 
             p = new Position(rightX, bottomLeftY);
             yellow[3] = p;
             paint.setColor(Color.BLACK);
-            map.drawCircle((float) rightX, (float) bottomLeftY, circleWidth / 2, paint);
+            map.drawCircle((float) rightX, (float) bottomLeftY, circleWidth / 2f, paint);
             paint.setColor(Color.YELLOW);
-            map.drawCircle((float) rightX, (float) bottomLeftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) rightX, (float) bottomLeftY, (circleWidth - 4) / 2f, paint);
 
 
             //Top right (GREEN)
@@ -403,12 +421,12 @@ public class LudoActivity extends AppCompatActivity {
             p = new Position(rightX, rightY);
             green[1] = p;
             map.drawCircle((float) rightX,
-                    (float) rightY, circleWidth / 2, paint);
+                    (float) rightY, circleWidth / 2f, paint);
 
             paint.setColor(Color.GREEN);
 
             map.drawCircle((float) rightX,
-                    (float) rightY, (circleWidth - 4) / 2, paint);
+                    (float) rightY, (circleWidth - 4) / 2f, paint);
 
             paint.setColor(Color.BLACK);
 
@@ -416,18 +434,18 @@ public class LudoActivity extends AppCompatActivity {
 
             p = new Position(leftX, bottomLeftY);
             green[2] = p;
-            map.drawCircle((float) leftX, (float) bottomLeftY, circleWidth / 2, paint);
+            map.drawCircle((float) leftX, (float) bottomLeftY, circleWidth / 2f, paint);
 
             paint.setColor(Color.GREEN);
 
-            map.drawCircle((float) leftX, (float) bottomLeftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) leftX, (float) bottomLeftY, (circleWidth - 4) / 2f, paint);
 
             p = new Position(rightX, bottomLeftY);
             green[3] = p;
             paint.setColor(Color.BLACK);
-            map.drawCircle((float) rightX, (float) bottomLeftY, circleWidth / 2, paint);
+            map.drawCircle((float) rightX, (float) bottomLeftY, circleWidth / 2f, paint);
             paint.setColor(Color.GREEN);
-            map.drawCircle((float) rightX, (float) bottomLeftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) rightX, (float) bottomLeftY, (circleWidth - 4) / 2f, paint);
 
 
             //BottomRight (Blue)
@@ -459,11 +477,11 @@ public class LudoActivity extends AppCompatActivity {
             blue[0] = p;
 
             paint.setColor(Color.BLACK);
-            map.drawCircle((float) leftX, (float) leftY, circleWidth / 2, paint);
+            map.drawCircle((float) leftX, (float) leftY, circleWidth / 2f, paint);
 
             paint.setColor(Color.BLUE);
 
-            map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) leftX, (float) leftY, (circleWidth - 4) / 2f, paint);
 
             paint.setColor(Color.BLACK);
             rightX = topRightX + blockWidthHeight - redBorderWidth - 2 - circleWidth;
@@ -471,11 +489,11 @@ public class LudoActivity extends AppCompatActivity {
 
             p = new Position(rightX, rightY);
             blue[1] = p;
-            map.drawCircle((float) rightX, (float) rightY, circleWidth / 2, paint);
+            map.drawCircle((float) rightX, (float) rightY, circleWidth / 2f, paint);
 
             paint.setColor(Color.BLUE);
 
-            map.drawCircle((float) rightX, (float) rightY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) rightX, (float) rightY, (circleWidth - 4) / 2f, paint);
 
             paint.setColor(Color.BLACK);
 
@@ -483,18 +501,18 @@ public class LudoActivity extends AppCompatActivity {
 
             p = new Position(leftX, bottomLeftY);
             blue[2] = p;
-            map.drawCircle((float) leftX, (float) bottomLeftY, circleWidth / 2, paint);
+            map.drawCircle((float) leftX, (float) bottomLeftY, circleWidth / 2f, paint);
 
             paint.setColor(Color.BLUE);
 
-            map.drawCircle((float) leftX, (float) bottomLeftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) leftX, (float) bottomLeftY, (circleWidth - 4) / 2f, paint);
 
             p = new Position(rightX, bottomLeftY);
             blue[3] = p;
             paint.setColor(Color.BLACK);
-            map.drawCircle((float) rightX, (float) bottomLeftY, circleWidth / 2, paint);
+            map.drawCircle((float) rightX, (float) bottomLeftY, circleWidth / 2f, paint);
             paint.setColor(Color.BLUE);
-            map.drawCircle((float) rightX, (float) bottomLeftY, (circleWidth - 4) / 2, paint);
+            map.drawCircle((float) rightX, (float) bottomLeftY, (circleWidth - 4) / 2f, paint);
 
             //Draw Path Now
 
@@ -787,7 +805,7 @@ public class LudoActivity extends AppCompatActivity {
             Path path = new Path();
             path.moveTo(left + blockWidthHeight + 2, blockWidthHeight + 2);
             path.lineTo(left + blockWidthHeight + 2, blockWidthHeight + pathWidth - 2);
-            path.lineTo(left + blockWidthHeight + (pathWidth / 2), blockWidthHeight + (pathWidth / 2));
+            path.lineTo(left + blockWidthHeight + (pathWidth / 2f), blockWidthHeight + (pathWidth / 2f));
             path.lineTo(left + blockWidthHeight + 2, blockWidthHeight + 2);
             path.close();
             map.drawPath(path, paint);
@@ -797,7 +815,7 @@ public class LudoActivity extends AppCompatActivity {
             path = new Path();
             path.moveTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + 2);
             path.lineTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + pathWidth - 2);
-            path.lineTo(left + blockWidthHeight + (pathWidth / 2), blockWidthHeight + (pathWidth / 2));
+            path.lineTo(left + blockWidthHeight + (pathWidth / 2f), blockWidthHeight + (pathWidth / 2f));
             path.lineTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + 2);
             path.close();
 
@@ -807,7 +825,7 @@ public class LudoActivity extends AppCompatActivity {
             path = new Path();
             path.moveTo(left + blockWidthHeight + 2, blockWidthHeight + 2);
             path.lineTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + 2);
-            path.lineTo(left + blockWidthHeight + (pathWidth / 2), blockWidthHeight + (pathWidth / 2));
+            path.lineTo(left + blockWidthHeight + (pathWidth / 2f), blockWidthHeight + (pathWidth / 2f));
             path.lineTo(left + blockWidthHeight + 2, blockWidthHeight + 2);
             path.close();
 
@@ -817,7 +835,7 @@ public class LudoActivity extends AppCompatActivity {
             path = new Path();
             path.moveTo(left + blockWidthHeight + 2, blockWidthHeight + pathWidth - 2);
             path.lineTo(left + blockWidthHeight + pathWidth - 2, blockWidthHeight + pathWidth - 2);
-            path.lineTo(left + blockWidthHeight + (pathWidth / 2), blockWidthHeight + (pathWidth / 2));
+            path.lineTo(left + blockWidthHeight + (pathWidth / 2f), blockWidthHeight + (pathWidth / 2f));
             path.lineTo(left + blockWidthHeight + 2, blockWidthHeight + pathWidth - 2);
             path.close();
 
@@ -837,45 +855,45 @@ public class LudoActivity extends AppCompatActivity {
 
             paint.setColor(Color.parseColor(redPieceColor));
 
-            redPiece.drawCircle(siglePathWidth / 2, pieceWidth / 2, pieceWidth / 2, paint);
+            redPiece.drawCircle(siglePathWidth / 2f, pieceWidth / 2f, pieceWidth / 2f, paint);
             path = new Path();
-            path.moveTo(x, pieceWidth / 2);
-            path.lineTo(siglePathWidth / 2, pieceHeight);
-            path.lineTo(x + pieceWidth, pieceWidth / 2);
+            path.moveTo(x, pieceWidth / 2f);
+            path.lineTo(siglePathWidth / 2f, pieceHeight);
+            path.lineTo(x + pieceWidth, pieceWidth / 2f);
             path.close();
             redPiece.drawPath(path, paint);
             paint.setColor(Color.WHITE);
-            redPiece.drawCircle(siglePathWidth / 2, pieceWidth / 2, 10, paint);
+            redPiece.drawCircle(siglePathWidth / 2f, pieceWidth / 2f, 10, paint);
             redPiece.save();
 
             bmpBluePiece = Bitmap.createBitmap(siglePathWidth, siglePathWidth, Bitmap.Config.ARGB_8888);
 
             Canvas bluePiece = new Canvas(bmpBluePiece);
             paint.setColor(Color.parseColor(bluePieceColor));
-            bluePiece.drawCircle(siglePathWidth / 2, pieceWidth / 2, pieceWidth / 2, paint);
+            bluePiece.drawCircle(siglePathWidth / 2f, pieceWidth / 2f, pieceWidth / 2f, paint);
             bluePiece.drawPath(path, paint);
             paint.setColor(Color.WHITE);
-            bluePiece.drawCircle(siglePathWidth / 2, pieceWidth / 2, 10, paint);
+            bluePiece.drawCircle(siglePathWidth / 2f, pieceWidth / 2f, 10, paint);
             bluePiece.save();
 
             bmpYellowPiece = Bitmap.createBitmap(siglePathWidth, siglePathWidth, Bitmap.Config.ARGB_8888);
 
             Canvas yellowPiece = new Canvas(bmpYellowPiece);
             paint.setColor(Color.parseColor(yellowPieceColor));
-            yellowPiece.drawCircle(siglePathWidth / 2, pieceWidth / 2, pieceWidth / 2, paint);
+            yellowPiece.drawCircle(siglePathWidth / 2f, pieceWidth / 2f, pieceWidth / 2f, paint);
             yellowPiece.drawPath(path, paint);
             paint.setColor(Color.WHITE);
-            yellowPiece.drawCircle(siglePathWidth / 2, pieceWidth / 2, 10, paint);
+            yellowPiece.drawCircle(siglePathWidth / 2f, pieceWidth / 2f, 10, paint);
             yellowPiece.save();
 
             bmpGreenPiece = Bitmap.createBitmap(siglePathWidth, siglePathWidth, Bitmap.Config.ARGB_8888);
 
             Canvas greenPiece = new Canvas(bmpGreenPiece);
             paint.setColor(Color.parseColor(greenPieceColor));
-            greenPiece.drawCircle(siglePathWidth / 2, pieceWidth / 2, pieceWidth / 2, paint);
+            greenPiece.drawCircle(siglePathWidth / 2f, pieceWidth / 2f, pieceWidth / 2f, paint);
             greenPiece.drawPath(path, paint);
             paint.setColor(Color.WHITE);
-            greenPiece.drawCircle(siglePathWidth / 2, pieceWidth / 2, 10, paint);
+            greenPiece.drawCircle(siglePathWidth / 2f, pieceWidth / 2f, 10, paint);
             greenPiece.save();
         }
 
@@ -902,7 +920,7 @@ public class LudoActivity extends AppCompatActivity {
                     paint.setTextSize(50);
                     paint.setTextAlign(Paint.Align.CENTER);
                     paint.setColor(getColor(R.color.gold));
-                    canvas.drawText(winText, canvas.getWidth() / 2, canvas.getHeight() / 2, paint);
+                    canvas.drawText(winText, canvas.getWidth() / 2f, canvas.getHeight() / 2f, paint);
                 }
                 holder.unlockCanvasAndPost(canvas);
             }
@@ -971,8 +989,7 @@ public class LudoActivity extends AppCompatActivity {
 
             if (t == Turn.RED) {
                 Piece[] pieces = playerRed.getRedPiecePositions();
-                for (int i = 0; i < pieces.length; i++) {
-                    Piece p = pieces[i];
+                for (Piece p : pieces) {
                     if (p.getMove()) {
                         if (p.UpdatePosition()) {
                             boolean clear = true;
@@ -1046,8 +1063,7 @@ public class LudoActivity extends AppCompatActivity {
                 }
             } else if (t == Turn.GREEN) {
                 Piece[] pieces = playerGreen.getRedPiecePositions();
-                for (int i = 0; i < pieces.length; i++) {
-                    Piece p = pieces[i];
+                for (Piece p : pieces) {
                     if (p.getMove()) {
                         if (p.UpdatePosition()) {
                             boolean clear = true;
@@ -1122,8 +1138,7 @@ public class LudoActivity extends AppCompatActivity {
                 }
             } else if (t == Turn.BLUE) {
                 Piece[] pieces = playerBlue.getRedPiecePositions();
-                for (int i = 0; i < pieces.length; i++) {
-                    Piece p = pieces[i];
+                for (Piece p : pieces) {
                     if (p.getMove()) {
                         if (p.UpdatePosition()) {
                             boolean clear = true;
@@ -1198,8 +1213,7 @@ public class LudoActivity extends AppCompatActivity {
                 }
             } else if (t == Turn.YELLOW) {
                 Piece[] pieces = playerYellow.getRedPiecePositions();
-                for (int i = 0; i < pieces.length; i++) {
-                    Piece p = pieces[i];
+                for (Piece p : pieces) {
                     if (p.getMove()) {
                         if (p.UpdatePosition()) {
                             p.setMove(false);
@@ -1575,11 +1589,10 @@ public class LudoActivity extends AppCompatActivity {
 
             if (playerRed != null) {
                 Piece[] pieces = playerRed.getRedPiecePositions();
-                for (int i = 0; i < pieces.length; i++) {
-                    Piece p = pieces[i];
+                for (Piece p : pieces) {
                     //canvas.drawBitmap(playerRed.getBmpPiece(),p.getX() - (playerRed.getPieceSize() / 2), p.getY() - (playerRed.getPieceSize()),null);
                     paint.setColor(Color.parseColor(redPieceColor));
-                    canvas.drawBitmap(bmpRedPiece, p.getX() - bmpRedPiece.getWidth() / 2, p.getY() - bmpRedPiece.getHeight(), null);
+                    canvas.drawBitmap(bmpRedPiece, p.getX() - bmpRedPiece.getWidth() / 2f, p.getY() - bmpRedPiece.getHeight(), null);
                     //canvas.drawCircle(p.getX(),p.getY(),(CircleSize - 8) / 2,paint);
                     //canvas.drawRect(p.getCollision(),paint);
                 }
@@ -1595,10 +1608,9 @@ public class LudoActivity extends AppCompatActivity {
 
             if (playerYellow != null) {
                 Piece[] pieces = playerYellow.getRedPiecePositions();
-                for (int i = 0; i < pieces.length; i++) {
-                    Piece p = pieces[i];
+                for (Piece p : pieces) {
                     paint.setColor(Color.parseColor(yellowPieceColor));
-                    canvas.drawBitmap(bmpYellowPiece, p.getX() - bmpYellowPiece.getWidth() / 2, p.getY() - bmpYellowPiece.getHeight(), null);
+                    canvas.drawBitmap(bmpYellowPiece, p.getX() - bmpYellowPiece.getWidth() / 2f, p.getY() - bmpYellowPiece.getHeight(), null);
                     //canvas.drawRect(p.getCollision(),paint);
                 }
 
@@ -1613,10 +1625,9 @@ public class LudoActivity extends AppCompatActivity {
 
             if (playerBlue != null) {
                 Piece[] pieces = playerBlue.getRedPiecePositions();
-                for (int i = 0; i < pieces.length; i++) {
-                    Piece p = pieces[i];
+                for (Piece p : pieces) {
                     paint.setColor(Color.parseColor(bluePieceColor));
-                    canvas.drawBitmap(bmpBluePiece, p.getX() - bmpBluePiece.getWidth() / 2, p.getY() - bmpBluePiece.getHeight(), null);
+                    canvas.drawBitmap(bmpBluePiece, p.getX() - bmpBluePiece.getWidth() / 2f, p.getY() - bmpBluePiece.getHeight(), null);
                 }
 
                 if (t == Turn.BLUE) {
@@ -1633,7 +1644,7 @@ public class LudoActivity extends AppCompatActivity {
                 for (int i = 0; i < green.length; i++) {
                     Piece p = pieces[i];
                     paint.setColor(Color.parseColor(greenPieceColor));
-                    canvas.drawBitmap(bmpGreenPiece, p.getX() - bmpGreenPiece.getWidth() / 2, p.getY() - bmpGreenPiece.getHeight(), null);
+                    canvas.drawBitmap(bmpGreenPiece, p.getX() - bmpGreenPiece.getWidth() / 2f, p.getY() - bmpGreenPiece.getHeight(), null);
                 }
 
                 if (t == Turn.GREEN) {
@@ -1745,7 +1756,7 @@ public class LudoActivity extends AppCompatActivity {
 
         void control() {
             try {
-                gameThread.sleep(17);
+                Thread.sleep(17);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
