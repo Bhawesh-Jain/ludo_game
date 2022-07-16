@@ -726,6 +726,8 @@ public class LudoActivity extends AppCompatActivity {
                                 pathY + siglePathWidth - 2, paint);
                     }
 
+//                    dasfjksadfj
+
                     if (i == 2 && j == 4)
                         map.drawBitmap(scaledBmp, pathX, pathY, null);
 
